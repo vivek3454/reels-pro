@@ -15,7 +15,10 @@ if (!cached) {
     }
 }
 
-export async function connectToDatabas() {
+console.log("global", global);
+
+
+export async function connectToDatabase() {
     if (cached.connection) {
         return cached.connection;
     }
@@ -35,7 +38,7 @@ export async function connectToDatabas() {
         cached.connection = await cached.promise;
     } catch (error) {
         cached.promise = null;
-        throw error;   
+        throw error;
     }
 
     return cached.connection;
