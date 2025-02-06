@@ -14,11 +14,12 @@ interface FileUploadProps {
 export default function FileUpload({
     onSuccess,
     onProgress,
-    fileType = "image"
+    fileType = "video"
 }: FileUploadProps) {
     const ikUploadRefTest = useRef(null);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [progress, setProgress] = useState(0);
 
     const onError = (err: { message: string }) => {
         console.log("Error", err);
@@ -34,17 +35,15 @@ export default function FileUpload({
     };
 
     const handleUploadProgress = (progress) => {
-        console.log("Progress", progress);
-        setUploading(true);
-        setError(null);
+        if (progress.lengthComputable && onProgress) {
+            const percentComplete = (progress.loaded / progress.total) * 100;
+            setProgress(Math.round(percentComplete));
+        }
     };
 
-    const handleUploadStart = (evt: ChangeEvent) => {
-        console.log("Start", evt);
-        if (evt.lengthComputable && onProgress) {
-            const percentComplete = (evt.loaded / evt.total) * 100;
-            onProgress(Math.round(percentComplete));
-        }
+    const handleUploadStart = () => {
+        setUploading(true);
+        setError(null);
     };
 
     const validateFile = (file: File) => {
@@ -71,7 +70,7 @@ export default function FileUpload({
                 return false;
             }
         }
-        return false;
+        return true;
     };
 
     return (
@@ -90,9 +89,15 @@ export default function FileUpload({
             />
 
             {uploading && (
-                <div className="flex items-center gap-2 text-sm text-primary">
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    <span>Uploading...</span>
+                <div className="">
+                    <div className="flex items-center justify-between gap-2 text-sm text-primary">
+                        <div className="flex items-center font-bold">
+                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            Uploading Video...
+                        </div>
+                        <span className="font-bold">{progress} %</span>
+                    </div>
+                    <progress className="progress progress-primary w-full mt-2" value={progress} max="100"></progress>
                 </div>
             )}
 

@@ -36,7 +36,7 @@ const videoSchema = new Schema<IVideo>({
     },
     thumbnailUrl: {
         type: String,
-        required: true,
+        required: false,
     },
     controls: {
         type: Boolean,
@@ -61,5 +61,5 @@ const videoSchema = new Schema<IVideo>({
     timestamps: true,
 });
 
-const Video = models?.User || model<IVideo>("Video", videoSchema);
+const Video = models?.Video || model<IVideo>("Video", videoSchema);
 export default Video;

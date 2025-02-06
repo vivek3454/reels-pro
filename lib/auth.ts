@@ -33,7 +33,7 @@ export const authOptions: NextAuthOptions = {
 
                     return {
                         id: user?._id.toString(),
-                        email: user?._email
+                        email: user?.email
                     };
                 } catch (error) {
                     throw error;
@@ -44,13 +44,17 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         jwt: async function ({ token, user }) {
             if (user) {
+                console.log("user", user);
+
                 token.id = user.id;
+                token.email = user.email;
             }
             return token;
         },
         session: async function ({ session, token }) {
             if (session.user) {
                 session.user.id = token.id as string;
+                session.user.email = token.email;
             }
             return session;
         }
@@ -63,5 +67,5 @@ export const authOptions: NextAuthOptions = {
         strategy: "jwt",
         maxAge: 30 * 24 * 60 * 60
     },
-    secret:process.env.NEXTAUTH_SECRET
+    secret: process.env.NEXTAUTH_SECRET
 };

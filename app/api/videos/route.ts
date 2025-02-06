@@ -10,8 +10,11 @@ export async function GET() {
 
         const videos = await Video.find({}).sort({ createdAt: -1 }).lean();
 
+        console.log("videos: ", videos);
+
+
         if (!videos || videos.length === 0) {
-            return NextResponse.json({ videos: [] }, { status: 200 });
+            return NextResponse.json([], { status: 200 });
         }
 
         return NextResponse.json(videos, { status: 200 });
@@ -40,8 +43,8 @@ export async function POST(request: NextRequest) {
         if (
             !body.title ||
             !body.description ||
-            !body.videoUrl ||
-            !body.thumbnailUrl
+            !body.videoUrl
+            // !body.thumbnailUrl
         ) {
             return NextResponse.json(
                 { error: "Missing required fields" },
@@ -59,10 +62,15 @@ export async function POST(request: NextRequest) {
             }
         };
 
+        console.log("videoData", videoData);
+
+
         const newVideo = await Video.create(videoData);
 
         return NextResponse.json(newVideo, { status: 200 });
     } catch (error) {
+        console.log("error", error);
+
         return NextResponse.json(
             { error: "Failed to upload video" },
             { status: 500 }

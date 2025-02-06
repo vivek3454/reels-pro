@@ -7,6 +7,8 @@ import { useNotification } from "./Notification";
 
 const Header = () => {
     const { data: session } = useSession();
+    console.log("session",session);
+    
     const { showNotification } = useNotification();
 
     const handleSignOut = async () => {
@@ -28,7 +30,7 @@ const Header = () => {
                         onClick={() => showNotification("Welcome to ImageKit Shop", "info")}
                     >
                         <Home className="w-5 h-5" />
-                        ImageKit Shop
+                        Reels Pro
                     </Link>
                 </div>
                 <div className="flex flex-1 justify-end px-2">
@@ -53,30 +55,6 @@ const Header = () => {
                                             </span>
                                         </li>
                                         <div className="divider my-1"></div>
-                                        {session.user?.role === "admin" && (
-                                            <li>
-                                                <Link
-                                                    href="/admin"
-                                                    className="px-4 py-2 hover:bg-base-200 block w-full"
-                                                    onClick={() =>
-                                                        showNotification(
-                                                            "Welcome to Admin Dashboard",
-                                                            "info"
-                                                        )
-                                                    }
-                                                >
-                                                    Admin Dashboard
-                                                </Link>
-                                            </li>
-                                        )}
-                                        <li>
-                                            <Link
-                                                href="/orders"
-                                                className="px-4 py-2 hover:bg-base-200 block w-full"
-                                            >
-                                                My Orders
-                                            </Link>
-                                        </li>
                                         <li>
                                             <button
                                                 onClick={handleSignOut}
