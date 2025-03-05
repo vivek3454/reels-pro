@@ -14,7 +14,7 @@ export default function VideoCard({ video }: { video: IVideo }) {
                         path={video.videoUrl}
                         transformation={[
                             {
-                                height: height.toString(),
+                                height: 400,
                                 width: width.toString(),
                                 quality: quality.toString(),
                             },
@@ -24,7 +24,6 @@ export default function VideoCard({ video }: { video: IVideo }) {
                         className=" w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                 </div>
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 rounded-xl" />
             </div>
             <div className="p-3">
                 <h2 className="text-xl font-bold">{video.title}</h2>

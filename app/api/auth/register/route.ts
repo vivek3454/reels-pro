@@ -10,7 +10,7 @@ export async function POST(request: Request) {
             return NextResponse.json(
                 { error: "Email and password are required" },
                 { status: 400 }
-            )
+            );
         }
 
         await connectToDatabase();
@@ -21,22 +21,22 @@ export async function POST(request: Request) {
             return NextResponse.json(
                 { error: "Email is already registered" },
                 { status: 400 }
-            )
+            );
         }
 
         const user = await User.create({
             email,
             password
-        })
+        });
 
         return NextResponse.json(
             { message: "User registered successfully" },
             { status: 201 }
-        )
+        );
     } catch (error) {
         return NextResponse.json(
             { error:"Failed to register User" },
             { status: 500 }
-        )
+        );
     }
 }

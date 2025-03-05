@@ -29,7 +29,7 @@ export default function Home() {
     <section>
       <div className="flex justify-between items-center gap-2">
         <h1 className="text-2xl font-bold">Uploaded videos</h1>
-        <button onClick={() => router.push("/upload")} className="btn btn-primary">Upload Video</button>
+        <button onClick={() => router.push("/upload")} className="btn btn-primary text-white">Upload Video</button>
       </div>
 
       <div className="grid grid-cols-1 mt-5 sm:grid-cols-2 lg:grid-cols-3 gap-6">

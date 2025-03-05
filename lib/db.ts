@@ -12,7 +12,7 @@ if (!cached) {
     cached = global.mongoose = {
         connection: null,
         promise: null
-    }
+    };
 }
 
 console.log("global", global);
@@ -27,11 +27,11 @@ export async function connectToDatabase() {
         const options = {
             bufferCommands: true,
             maxPoolSize: 10
-        }
+        };
 
         cached.promise = mongoose
             .connect(MONGODB_URL, options)
-            .then(() => mongoose.connection)
+            .then(() => mongoose.connection);
     }
 
     try {
