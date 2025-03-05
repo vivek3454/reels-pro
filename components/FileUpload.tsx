@@ -2,7 +2,7 @@
 import { IKUpload } from "imagekitio-next";
 import { IKUploadResponse } from "imagekitio-next/dist/types/components/IKUpload/props";
 import { Loader2 } from "lucide-react";
-import { ChangeEvent, useRef, useState } from "react";
+import { useState } from "react";
 
 interface FileUploadProps {
     onSuccess: (res: IKUploadResponse) => void;
@@ -16,7 +16,6 @@ export default function FileUpload({
     onProgress,
     fileType = "video"
 }: FileUploadProps) {
-    const ikUploadRefTest = useRef(null);
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [progress, setProgress] = useState(0);
@@ -34,7 +33,7 @@ export default function FileUpload({
         onSuccess(res);
     };
 
-    const handleUploadProgress = (progress) => {
+    const handleUploadProgress = (progress: { lengthComputable: any; loaded: number; total: number; }) => {
         if (progress.lengthComputable && onProgress) {
             const percentComplete = (progress.loaded / progress.total) * 100;
             setProgress(Math.round(percentComplete));
